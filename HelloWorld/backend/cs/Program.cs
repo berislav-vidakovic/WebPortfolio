@@ -7,10 +7,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<WebSocketService>();
 
 // Add services
-var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") 
-                       ?? builder.Configuration.GetConnectionString("DefaultConnection");
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+string connectionString;
+
+if (!string.IsNullOrEmpty(databaseUrl))
+{
+  // Convert DATABASE_URL from Render into Npgsql-compatible format
+  var uri = new Uri(databaseUrl);
+  var userInfo = uri.UserInfo.Split(':');
+  connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+}
+else
+{
+  connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+}
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+
+
 
 
 builder.Services.AddControllers();
@@ -37,8 +53,8 @@ app.UseCors("AllowReactApp");
 app.UseWebSockets();
 
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-app.Urls.Add($"http://*:{port}");
+//var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+//app.Urls.Add($"http://*:{port}");
 
 //app.UseHttpsRedirection();
 app.UseAuthorization();
