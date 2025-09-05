@@ -4,17 +4,20 @@ using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Read AllowedOrigins from appsettings.json
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
 // Add CORS service
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins(
-                "http://localhost:5173",              // local React dev
-                "https://your-frontend.onrender.com" // deployed frontend
-            )
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        if (allowedOrigins != null && allowedOrigins.Length > 0)
+        {
+            policy.WithOrigins(allowedOrigins)
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        }
     });
 });
 
@@ -38,7 +41,7 @@ else
     connectionString = builder.Configuration.GetConnectionString("PostgresConnection");
 }
 
-// Register DataService with connection string
+// Register services
 builder.Services.AddSingleton(new DataService(connectionString));
 builder.Services.AddSingleton<WebSocketHandler>();
 builder.Services.AddControllers();
