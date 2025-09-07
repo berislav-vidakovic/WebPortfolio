@@ -86,7 +86,7 @@ app.Map("/ws", async context =>
             if (existing != null)
             {
                 existing.Content = message;
-                await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync(); 
             }
 
             // 2️-Broadcast to all WS clients
