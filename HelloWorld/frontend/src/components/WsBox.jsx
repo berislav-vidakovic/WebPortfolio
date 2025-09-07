@@ -31,10 +31,10 @@ export default function WsBox() {
   return (
     <div className="box">
       <p className="boxtitle">
-        <b>Realtime refresh with WebSocket</b>
+        <b>Realtime update with WebSocket</b>
         <img src={wsImg} className="imgTools" />
       </p>
-      <textarea
+      <input
         value={textareaValueWS}
         onChange={(e) => setTextareaValueWS(e.target.value)}
         className="textarea"

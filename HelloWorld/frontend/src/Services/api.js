@@ -1,8 +1,6 @@
 import { API_BASE_URL } from '../config.js';
 
 export async function sendApiMessage(method, message = null) {
-  console.log("sendApiMessage will send message: ", message);
-
   const options = {
     method,
     headers: {

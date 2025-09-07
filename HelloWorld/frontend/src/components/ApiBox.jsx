@@ -14,7 +14,7 @@ export default function ApiBox() {
       console.error("Failed to send API message:", error);
     }
   };
-
+//console.log("TAB is hidden...polling stopped");
   const handleRefresh = async () => {
     try {
       console.log("Refreshing data ...");
@@ -33,7 +33,7 @@ export default function ApiBox() {
         <b>Simple REST API request</b>
         <img src={apiImg} className="imgTools" />
       </p>
-      <textarea
+      <input
         value={textareaValueAPI}
         onChange={(e) => setTextareaValueAPI(e.target.value)}
         className="textarea"

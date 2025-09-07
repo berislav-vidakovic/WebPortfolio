@@ -4,11 +4,15 @@ export function createWebSocket(url, onMessage, onOpen, onClose, onError) {
 
   socket.onopen = () => {
     console.log("WebSocket connected");
+    //TODO: update status
+    document.getElementById("status").textContent = "✅ WebSocket connected";
     if (onOpen) onOpen(socket);
   };
 
   socket.onmessage = (event) => {
     console.log("Received WS message:", event.data);
+    document.getElementById("status").textContent = "✅ WebSocket message received";
+
     if (onMessage) onMessage(event.data);
   };
 
