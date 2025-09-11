@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "testChatApp": "npx playwright test TestChatApp.spec --headed",
-    "testHelloWorld": "npx playwright test TestHelloWorld.spec --headed"
+    "testHelloWorld": "npx playwright test TestHelloWorld.spec --headed",
+    "testChatAppHeadless": "npx playwright test TestChatApp.spec",
+    "testHelloWorldHeadless": "npx playwright test TestHelloWorld.spec"
   },
   "keywords": [],
   "author": "",
