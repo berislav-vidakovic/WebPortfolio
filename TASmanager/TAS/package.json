@@ -1,0 +1,23 @@
+{
+  "name": "testautomation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "testChatApp": "npx playwright test TestChatApp.spec --headed",
+    "testHelloWorld": "npx playwright test TestHelloWorld.spec --headed",
+    "testChatAppHeadless": "npx playwright test TestChatApp.spec",
+    "testHelloWorldHeadless": "npx playwright test TestHelloWorld.spec"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.3.1"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.55.0",
+    "dotenv": "^17.2.2",
+    "playwright": "^1.55.0"
+  }
+}
