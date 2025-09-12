@@ -1,5 +1,9 @@
+// tasService.js
+
+const BACKEND_HTTP_URL = import.meta.env.VITE_BACKEND_HTTP_URL;
+
 export async function runTAS() {
-  const response = await fetch("http://localhost:4000/run-tas", {
+  const response = await fetch(`${BACKEND_HTTP_URL}/run-tas`, {
     method: "POST",
   });
   if (!response.ok) {

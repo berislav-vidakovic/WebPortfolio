@@ -1,6 +1,9 @@
+// App.jsx
 import React, { useState } from "react";
 import stripAnsi from "strip-ansi";
 
+const WS_URL = import.meta.env.VITE_BACKEND_WS_URL;
+const HTTP_URL = import.meta.env.VITE_BACKEND_HTTP_URL;
 
 function App() {
   const [logs, setLogs] = useState([]);
@@ -13,7 +16,7 @@ function App() {
     setReportUrl("");
     setShowLogs(true);
 
-    const ws = new WebSocket("ws://localhost:4000");
+    const ws = new WebSocket(WS_URL);
 
     ws.onopen = () => {
       console.log("Connected to TAS logs WebSocket");
@@ -24,7 +27,7 @@ function App() {
       // Try parsing JSON for TAS finished signal
       const data = JSON.parse(event.data);
       if (data.done) {
-        setReportUrl(`http://localhost:4000${data.reportUrl}`);
+        setReportUrl(`${HTTP_URL}${data.reportUrl}`);
         setShowLogs(false); // hide logs when TAS finished
       }
     } catch {
